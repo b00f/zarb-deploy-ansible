@@ -1,0 +1,3 @@
+---
+docker_image: zarb/zarb
+docker_image_tag: latest

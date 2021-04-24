@@ -9,7 +9,7 @@
 Check `ansible.cfg` and `inventory.yml` and update IP address for the remote machine.
 
 
-## Install dokcer
+## Install docker
 
 To install docker on remote machine, run this command:
 ```

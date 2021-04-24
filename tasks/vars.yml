@@ -1,3 +1,10 @@
 ---
+docker_edition: 'ce'
+docker_package: "docker-{{ docker_edition }}"
+docker_package_state: present
 docker_image: zarb/zarb
 docker_image_tag: latest
+docker_install_compose: false
+pip_install_packages: docker
+ansible_python_interpreter: /usr/bin/python3
+zarb_container_name: 'zarb'

@@ -1,7 +1,7 @@
 ---
   webservers:
     hosts:
-      testnet-1:
-        ansible_host: root@<ip_address>
+      zarb_host:
+        ansible_host: <uname>@<ip>
 
 

@@ -1,52 +1,53 @@
 [State]
-  [State.Store]
-    Path = "data"
+  MintbaseAddress = ""
+
+[Store]
+  Path = "data"
 
 [TxPool]
   WaitingTimeout = 2000000000
   MaxSize = 2000
 
 [Consensus]
-  TimeoutPrepare = 3000000000
-  TimeoutPrecommit = 2000000000
-  DeltaDuration = 1000000000
+  ChangeProposerTimeout = 6000000000
+  ChangeProposerDelta = 2000000000
 
 [Network]
-  Name = "zarb-testnet"
-  ListenAddress = []
+  Name = "zarb"
+  ListenAddress = ["/ip4/0.0.0.0/tcp/8421", "/ip6/::/tcp/8421"]
   NodeKeyFile = "node_key"
-  EnableNATService = false
-  EnableRelay = false
+  EnableNATService = true
+  EnableRelay = true
   EnableMDNS = true
-  EnableKademlia = false
+  EnableKademlia = true
   [Network.Bootstrap]
     Addresses = []
-    MinThreshold = 4
-    MaxThreshold = 8
+    MinThreshold = 8
+    MaxThreshold = 16
     Period = 60000000000
-    Timeout = 20000000000
 
 [Logger]
   Colorfull = true
   [Logger.Levels]
     _capnp = "error"
-    _consensus = "debug"
+    _consensus = "error"
+    _grpc = "error"
     _http = "error"
     _network = "error"
     _pool = "error"
-    _state = "info"
-    _sync = "warning"
-    _grpc = "error"
-    default = "info"
+    _state = "error"
+    _sync = "error"
+    default = "error"
 
 [Sync]
-  Moniker = "my-testnet-node"
-  StartingTimeout = 2000000000
+  Moniker = ""
+  StartingTimeout = 3000000000
   HeartBeatTimeout = 5000000000
   SessionTimeout = 3000000000
-  InitialBlockDownload = false
+  InitialBlockDownload = true
   BlockPerMessage = 10
-  CacheSize = 10000
+  RequestBlockInterval = 720
+  CacheSize = 500000
 
 [Capnp]
   Enable = false
@@ -57,8 +58,8 @@
   Address = "[::]:8081"
 
 [GRPC]
-  Enable = false
+  Enable = true
   Address = "[::]:9090"
   [GRPC.Gateway]
-    Enable = false
+    Enable = true
     Address = "[::]:8080"

@@ -1,0 +1,60 @@
+---
+- hosts: zarb_host
+  roles:
+    - geerlingguy.docker
+  become: yes
+  vars_files:
+    - vars.yml
+
+  pre_tasks:
+    - name: install gnupg2
+      become: true
+      apt: name=gnupg2 state=present
+
+    - name: install pip3
+      become: true
+      apt: name=python3-pip state=present
+
+  tasks:
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
+
+    - name: Create working directories
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+      loop:
+        - /zarb
+        - /zarb/node
+
+    - name: Copy genesis and config files
+      copy: src={{ item.src }} dest={{ item.dest }}
+      with_items:
+        - { src: '../files/genesis.json', dest: '/zarb/node/genesis.json' }
+        - { src: '../files/config.toml', dest: '/zarb/node/config.toml' }
+
+    - name: Stop and remove dockers
+      docker_container:
+        name: "{{ zarb_container_name }}"
+        image: "{{ docker_image }}:{{ docker_image_tag }}"
+        state: absent
+
+    - name: Remove image
+      docker_image:
+        state: absent
+        name: "{{ docker_image }}"
+        tag: "{{ docker_image_tag }}"
+
+    - name: Restarting the node
+      docker_container:
+        name: "{{ zarb_container_name }}"
+        image: "{{ docker_image }}:{{ docker_image_tag }}"
+        command: start -w /zarb -k=private_key
+        volumes: "/zarb/node:/zarb"
+        restart_policy: on-failure
+        ports:
+          - "8421:8421"
+          - "8080:8080"
+          - "9090:9090"

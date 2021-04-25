@@ -22,18 +22,15 @@
 
     - name: Create working directories
       file:
-        path: "{{ item }}"
+        path: "{{ zarb_working_directory }}"
         state: directory
         mode: '0755'
-      loop:
-        - /zarb
-        - /zarb/node
 
     - name: Copy genesis and config files
       copy: src={{ item.src }} dest={{ item.dest }}
       with_items:
-        - { src: '../files/genesis.json', dest: '/zarb/node/genesis.json' }
-        - { src: '../files/config.toml', dest: '/zarb/node/config.toml' }
+        - { src: '../files/genesis.json', dest: {{ zarb_working_directory }} + '/genesis.json' }
+        - { src: '../files/config.toml',  dest: {{ zarb_working_directory}} + '/config.toml' }
 
     - name: Stop and remove dockers
       docker_container:
@@ -52,8 +49,9 @@
         name: "{{ zarb_container_name }}"
         image: "{{ docker_image }}:{{ docker_image_tag }}"
         command: start -w /zarb -k=private_key
-        volumes: "/zarb/node:/zarb"
+        volumes: {{ zarb_working_directory }} + ":/zarb"
         restart_policy: on-failure
+        no_log: True
         ports:
           - "8421:8421"
           - "8080:8080"

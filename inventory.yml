@@ -2,6 +2,6 @@
   webservers:
     hosts:
       zarb_host:
-        ansible_host: <uname>@<ip>
+        ansible_host: <ip_address>
 
 

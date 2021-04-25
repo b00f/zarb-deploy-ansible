@@ -46,13 +46,13 @@
         tag: "{{ docker_image_tag }}"
 
     - name: Restarting the node
+      no_log: True
       docker_container:
         name: "{{ zarb_container_name }}"
         image: "{{ docker_image }}:{{ docker_image_tag }}"
         command: start -w /zarb -p={{ vault_validator_key }}
         volumes: "{{ zarb_working_directory }}:/zarb"
         restart_policy: on-failure
-        no_log: True
         ports:
           - "8421:8421"
           - "8080:8080"

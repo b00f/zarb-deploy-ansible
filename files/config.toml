@@ -21,7 +21,7 @@
   EnableMDNS = true
   EnableKademlia = true
   [Network.Bootstrap]
-    Addresses = []
+    Addresses = ["/ip4/172.104.186.100/tcp/8421/p2p/12D3KooWLB7zCZ2VV1AtqHwYy2RBgpxdtwYRYt1ZU7iECFNfpks6"]
     MinThreshold = 8
     MaxThreshold = 16
     Period = 60000000000

@@ -2,6 +2,7 @@
 - hosts: zarb_host
   roles:
     - geerlingguy.docker
+    - geerlingguy.ntp
   become: yes
   vars_files:
     - vars.yml

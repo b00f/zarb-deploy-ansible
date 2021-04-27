@@ -9,6 +9,7 @@
   MaxSize = 2000
 
 [Consensus]
+  QueryProposalTimeout = 1000000000
   ChangeProposerTimeout = 6000000000
   ChangeProposerDelta = 2000000000
 
@@ -43,8 +44,8 @@
   Moniker = ""
   StartingTimeout = 3000000000
   HeartBeatTimeout = 5000000000
-  SessionTimeout = 3000000000
-  InitialBlockDownload = true
+  SessionTimeout = 30000000000
+  InitialBlockDownload = false
   BlockPerMessage = 10
   RequestBlockInterval = 720
   CacheSize = 500000

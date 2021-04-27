@@ -9,3 +9,4 @@ pip_install_packages: docker
 ansible_python_interpreter: /usr/bin/python3
 zarb_container_name: "zarb"
 zarb_working_directory: "~/zarb"
+ntp_enabled: true

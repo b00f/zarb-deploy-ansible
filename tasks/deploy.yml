@@ -9,7 +9,7 @@
     - vault.yml
 
   pre_tasks:
-   - name: Update repositories cache
+    - name: Update repositories cache
       apt:
         update_cache: yes
 

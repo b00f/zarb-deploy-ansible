@@ -9,6 +9,10 @@
     - vault.yml
 
   pre_tasks:
+   - name: Update repositories cache
+      apt:
+        update_cache: yes
+
     - name: install gnupg2
       become: true
       apt: name=gnupg2 state=present
